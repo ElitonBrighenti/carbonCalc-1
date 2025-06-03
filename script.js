@@ -1,13 +1,19 @@
+// Cria ou acessa um banco de dados local
+// Fonte: https://pouchdb.com/
 const db = new PouchDB('carbon_footprint');
 
+// Função que salva os dados recebidos no banco
 function saveData(formData) {
     return db.put({
+        // Aqui é salvo a data atual em tempo real
         _id: new Date().toISOString(),
+        // Salva os dados do formulario
         formData: formData
     });
 }
-
+// Função que busca os dados no banco e exibe na tela
 function displaySavedData() {
+    // Ordena os dados que pegou do banco de forma desordenada
     db.allDocs({ include_docs: true, descending: true })
         .then(function (result) {
             const savedDataDiv = document.getElementById('savedData');
